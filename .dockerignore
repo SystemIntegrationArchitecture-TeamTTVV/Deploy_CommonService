@@ -1,0 +1,24 @@
+# Build outputs
+target/
+
+# VCS
+.git/
+.gitignore
+
+# IDE/editor
+.idea/
+.vscode/
+*.iml
+
+# OS / misc
+*.log
+*.tmp
+*.swp
+Thumbs.db
+Desktop.ini
+
+# Node (if any)
+node_modules/
+
+# Docker / compose overrides (optional)
+docker-compose*.yml

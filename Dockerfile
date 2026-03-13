@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.7
 ## Multi-stage Dockerfile for CommonService (Spring Boot, Java 21)
 
 # ====== BUILD STAGE ======
@@ -11,13 +12,15 @@ COPY mvnw mvnw.cmd ./
 COPY .mvn/ .mvn/
 
 # Download dependencies (will be cached if pom.xml does not change)
-RUN mvn -q -B dependency:go-offline
+RUN --mount=type=cache,target=/root/.m2 \
+    mvn -q -B -DskipTests dependency:go-offline
 
 # Copy source code
 COPY src ./src
 
 # Build the application (skip tests for faster image builds)
-RUN mvn -q -B clean package -DskipTests
+RUN --mount=type=cache,target=/root/.m2 \
+    mvn -q -B -DskipTests package
 
 
 # ====== RUNTIME STAGE ======
