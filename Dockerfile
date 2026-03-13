@@ -7,8 +7,8 @@ WORKDIR /app
 
 # Copy Maven descriptor and wrapper (if any) first to leverage Docker layer cache
 COPY pom.xml ./
-COPY mvnw mvnw.cmd* . || true
-COPY .mvn .mvn || true
+COPY mvnw mvnw.cmd ./
+COPY .mvn/ .mvn/
 
 # Download dependencies (will be cached if pom.xml does not change)
 RUN mvn -q -B dependency:go-offline
